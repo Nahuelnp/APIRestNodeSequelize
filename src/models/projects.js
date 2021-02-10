@@ -1,0 +1,35 @@
+import Sequelize from 'sequelize';
+import { sequelize } from '../database/database';
+import Task from './tasks';
+
+
+
+const Project = sequelize.define('projects', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name: {
+        type: Sequelize.TEXT
+    },
+    priority: {
+        type: Sequelize.INTEGER
+    },
+    description: {
+        type: Sequelize.TEXT
+    },
+    deliverydate: {
+        type: Sequelize.DATE
+    }
+},
+    {
+        timestamps: false //para que no tenga problemas con las fechas
+
+    })
+
+Project.hasMany(Task,{foreingKey: 'projectid',sourceKey:'id'});
+//Task.belongsTo(Project,{foreingKey:'projectid',sourceKey:'id'});
+
+export default Project;
+
